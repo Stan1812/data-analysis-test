@@ -8,11 +8,8 @@ MongoClient.connect(url, (err, db) => {
     const authors = db.db("articles").collection("authors")
     const distinctAuthor= 'data.author'
     arts.distinct(distinctAuthor, (err, res) => {
-        if (err) console.log(err);
+        if (err) log(err);
         log(res)
-        authors.ensureIndex({
-            _id: 1
-        })
         res.forEach(element => {
             let newObj = {
                 'author': element,
