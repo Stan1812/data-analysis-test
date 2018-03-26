@@ -6,11 +6,8 @@ MongoClient.connect(url, (err, db) => {
     if (err) throw err;
     const arts = db.db("articles").collection("arts")
     const authors = db.db("articles").collection("authors")
-    authors.ensureIndex()
-    let queryStr = {
-        "data.author": '王小波'
-    }
-    arts.distinct('data.author', (err, res) => {
+    const distinctAuthor= 'data.author'
+    arts.distinct(distinctAuthor, (err, res) => {
         if (err) console.log(err);
         log(res)
         authors.ensureIndex({
@@ -23,7 +20,7 @@ MongoClient.connect(url, (err, db) => {
             }
             authors.insertOne(newObj, (err, res) => {
                 if (err) throw err;
-                console.log(`${newObj}插入成功`);
+                console.log(`${newObj.author}插入成功`);
             });
         })
     });
